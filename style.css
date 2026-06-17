@@ -2,27 +2,25 @@
    1. VARIÁVEIS DE DESIGN (Identidade Visual Agro-Sustentável)
    ========================================================================== */
 :root {
-    /* Tema Claro (Padrão - Conectado à Natureza) */
-    --bg-color: #f7f9f6;          /* Fundo suave off-white esverdeado */
-    --text-color: #2c3e50;        /* Grafite escuro para excelente leitura */
-    --primary-color: #27ae60;     /* Verde folha (Sustentabilidade/Agro) */
-    --primary-hover: #219653;     /* Verde mais escuro para interações */
-    --accent-color: #e67e22;      /* Laranja terra (Tecnologia/Colheita) */
-    --card-bg: #ffffff;           /* Fundo dos blocos em branco */
-    --border-color: #e0e0e0;      /* Linhas divisórias sutis */
-    --hero-bg: #2d3a2e;           /* Fundo do rodapé e áreas escuras */
+    --bg-color: #f7f9f6;          
+    --text-color: #2c3e50;        
+    --primary-color: #27ae60;     
+    --primary-hover: #219653;     
+    --accent-color: #e67e22;      
+    --card-bg: #ffffff;           
+    --border-color: #e0e0e0;      
+    --hero-bg: #2d3a2e;           
     
     --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
     --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.05);
 }
 
-/* Tema Escuro (Ativado via JS na tag <body> para leitura noturna) */
 body.modo-escuro {
-    --bg-color: #1a241b;          /* Verde floresta extremamente escuro */
-    --text-color: #ecf0f1;        /* Texto claro */
-    --card-bg: #243026;           /* Cards em verde fosco fechado */
-    --border-color: #2c3e50;      /* Divisórias mais escuras */
-    --primary-color: #2ecc71;     /* Verde brilhante para destacar no escuro */
+    --bg-color: #1a241b;          
+    --text-color: #ecf0f1;        
+    --card-bg: #243026;           
+    --border-color: #2c3e50;      
+    --primary-color: #2ecc71;     
     --primary-hover: #27ae60;
     --hero-bg: #111a12;
 }
@@ -65,10 +63,8 @@ nav {
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--primary-color);
-    letter-spacing: -0.5px;
 }
 
-/* Botão de Alternar Tema */
 .btn-tema {
     background: none;
     border: 2px solid var(--primary-color);
@@ -87,7 +83,7 @@ nav {
 }
 
 /* ==========================================================================
-   4. SEÇÃO HERO (Apresentação de Impacto)
+   4. SEÇÃO HERO
    ========================================================================== */
 .hero {
     background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)), 
@@ -101,18 +97,16 @@ nav {
     font-size: 3rem;
     margin-bottom: 20px;
     font-weight: 800;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .hero p {
     font-size: 1.2rem;
     max-width: 800px;
     margin: 0 auto;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
 /* ==========================================================================
-   5. SEÇÕES E CARDS (Estrutura de Conteúdo)
+   5. SEÇÕES E CARDS
    ========================================================================== */
 .secao {
     padding: 80px 5%;
@@ -137,7 +131,6 @@ nav {
     border-radius: 2px;
 }
 
-/* Grid de Pilares */
 .grid-pilares {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -162,11 +155,10 @@ nav {
     color: var(--primary-color);
     margin-bottom: 15px;
     font-size: 1.3rem;
-    font-weight: 700;
 }
 
 /* ==========================================================================
-   6. FORMULÁRIO INTERATIVO (Simulador Inteligente)
+   6. FORMULÁRIO INTERATIVO
    ========================================================================== */
 .container-simulador {
     background-color: var(--card-bg);
@@ -212,7 +204,6 @@ select:focus, input:focus {
     border-color: var(--primary-color);
 }
 
-/* Botão do Formulário */
 button.btn-enviar {
     background-color: var(--primary-color);
     color: #ffffff;
@@ -229,7 +220,6 @@ button.btn-enviar:hover {
     background-color: var(--primary-hover);
 }
 
-/* Box de Resultado do JS */
 #resultado-simulacao {
     margin-top: 25px;
     padding: 18px;
@@ -237,11 +227,11 @@ button.btn-enviar:hover {
     font-weight: 600;
     text-align: center;
     font-size: 1.05rem;
-    transition: all 0.3s ease;
+    display: none; /* Inicialmente oculto, o JS ativa após o cálculo */
 }
 
 /* ==========================================================================
-   7. GATILHOS DE ANIMAÇÃO (IntersectionObserver do JS)
+   7. GATILHOS DE ANIMAÇÃO
    ========================================================================== */
 .animar-scroll {
     opacity: 0;
@@ -250,14 +240,13 @@ button.btn-enviar:hover {
                 transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Classe adicionada pelo JS */
 .scroll-ativo {
     opacity: 1;
     transform: translateY(0);
 }
 
 /* ==========================================================================
-   8. RODAPÉ (Footer)
+   8. RODAPÉ
    ========================================================================== */
 footer {
     text-align: center;
@@ -265,24 +254,10 @@ footer {
     background-color: var(--hero-bg);
     color: #ffffff;
     font-size: 0.95rem;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    transition: background-color 0.3s ease;
+    margin-top: 60px;
 }
 
-/* ==========================================================================
-   9. RESPONSIVIDADE (Ajustes para Mobile)
-   ========================================================================== */
 @media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.2rem;
-    }
-    .hero p {
-        font-size: 1rem;
-    }
-    .secao {
-        padding: 50px 5%;
-    }
-    .container-simulador {
-        padding: 25px;
-    }
+    .hero h1 { font-size: 2.2rem; }
+    .secao { padding: 50px 5%; }
 }
