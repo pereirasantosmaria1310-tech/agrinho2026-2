@@ -3,208 +3,349 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experiência Dinâmica com JavaScript</title>
+    <title>AgroSustentável | O Futuro da Terra</title>
     <style>
-        /* --- ESTILOS ADICIONAIS PARA SUPORTAR O JAVASCRIPT --- */
-        
+        /* --- VARIÁVEIS DE DESIGN (TEMA VERDE/AGRO) --- */
         :root {
-            --bg-color: #f4f4f9;
-            --text-color: #333;
+            --bg-color: #f7f9f6;
+            --text-color: #2c3e50;
+            --primary-color: #27ae60;
+            --primary-hover: #219653;
+            --accent-color: #e67e22;
             --card-bg: #ffffff;
-            --primary-color: #007bff;
+            --border-color: #e0e0e0;
+            --hero-bg: #2d3a2e;
         }
 
-        /* Classe que o JavaScript ativa para mudar o tema */
+        /* Modo Escuro */
         body.modo-escuro {
-            --bg-color: #121212;
-            --text-color: #f4f4f9;
-            --card-bg: #1e1e1e;
-            --primary-color: #3700b3;
+            --bg-color: #1a241b;
+            --text-color: #ecf0f1;
+            --card-bg: #243026;
+            --border-color: #2c3e50;
+            --hero-bg: #111a12;
+        }
+
+        /* --- RESET E ESTILOS GERAIS --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            margin: 0;
-            padding: 20px;
+            line-height: 1.6;
             transition: background-color 0.3s, color 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
-        header {
-            margin-bottom: 30px;
+        /* --- NAVBAR --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .btn-tema {
+            background: none;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-tema:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+            color: white;
+            padding: 100px 5%;
             text-align: center;
         }
 
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--primary-color);
-            color: white;
-            transition: background 0.2s;
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
         }
 
-        button:hover {
-            opacity: 0.9;
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
         }
 
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        /* --- SEÇÃO DE PILARES (CARDS) --- */
+        .secao {
+            padding: 60px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .titulo-secao {
+            text-align: center;
             margin-bottom: 40px;
+            font-size: 2rem;
+            position: relative;
+        }
+
+        .titulo-secao::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .grid-pilares {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        /* --- FORMULÁRIO / SIMULADOR --- */
+        .container-simulador {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         form {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
         }
 
-        input[type="email"] {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        #erro-mensagem {
-            font-weight: bold;
-            margin: 0;
+        label {
+            font-weight: 600;
         }
 
-        /* Classes de Animação controladas pelo Scroll (JavaScript) */
-        .animar-ao-entrar {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-            margin-top: 20vh; /* Força o scroll para testar a animação */
-            padding: 30px;
-            background: var(--primary-color);
+        select, input {
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            background-color: transparent;
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        button.btn-enviar {
+            background-color: var(--primary-color);
             color: white;
-            border-radius: 8px;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button.btn-enviar:hover {
+            background-color: var(--primary-hover);
+        }
+
+        #resultado-simulacao {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: bold;
             text-align: center;
         }
 
-        /* Classe injetada pelo JavaScript quando o elemento entra na tela */
-        .fade-in-ativa {
+        /* --- ANIMAÇÃO DE SCROLL --- */
+        .animar-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .scroll-ativo {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background-color: var(--hero-bg);
+            color: white;
+            margin-top: 60px;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Página Dinâmica</h1>
-        <button id="btn-tema">Alternar Modo Escuro</button>
+    <nav>
+        <div class="logo">🌿 AgroSustentável</div>
+        <button class="btn-tema" id="btn-tema">Alternar Tema</button>
+    </nav>
+
+    <header class="hero">
+        <h1>O Futuro do Agronegócio é Sustentável</h1>
+        <p>Descubra como a união entre tecnologia de ponta, produtividade em larga escala e preservação ambiental está transformando o campo e garantindo o alimento das próximas gerações.</p>
     </header>
 
-    <main class="container">
-        <h2>Inscreva-se na Newsletter</h2>
-        <form id="meu-formulario">
-            <label for="email">E-mail:</label>
-            <input type="email" id="email" placeholder="exemplo@email.com" required>
-            <button type="submit">Enviar Dados</button>
-            <p id="erro-mensagem"></p>
-        </form>
-    </main>
-
-    <section class="animar-ao-entrar">
-        <h2>¡Surpresa! 🎉</h2>
-        <p>Este bloco apareceu suavemente porque o JavaScript detectou que você rolou a página até aqui.</p>
+    <section class="secao">
+        <h2 class="titulo-secao">Pilares da Inovação</h2>
+        <div class="grid-pilares">
+            <div class="card">
+                <h3>01. Tecnologia no Campo</h3>
+                <p>Uso de Inteligência Artificial, drones e sensores IoT para monitorar lavouras em tempo real, evitando o desperdício de recursos e insumos.</p>
+            </div>
+            <div class="card">
+                <h3>02. Produção Inteligente</h3>
+                <p>Técnicas como o Plantio Direto, Integração Lavoura-Pecuária-Floresta (ILPF) e rotação de culturas que mantêm o solo vivo e produtivo por mais tempo.</p>
+            </div>
+            <div class="card">
+                <h3>03. Preservação Ativa</h3>
+                <p>Mecanismos de reflorestamento, proteção de nascentes e captura de carbono gerando créditos verdes e valorizando o ecossistema local.</p>
+            </div>
+        </div>
     </section>
 
+    <section class="secao animar-scroll">
+        <h2 class="titulo-secao">Simulador de Impacto Verde</h2>
+        <div class="container-simulador">
+            <form id="form-simulador">
+                <div class="form-group">
+                    <label for="tecnologia">Qual tecnologia pretende adotar?</label>
+                    <select id="tecnologia" required>
+                        <option value="">Selecione uma opção...</option>
+                        <option value="irrigacao">Irrigação por Gotejamento Inteligente</option>
+                        <option value="ilpf">Sistema ILPF (Integração de Florestas)</option>
+                        <option value="solar">Energia Solar na Fazenda</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tamanho">Tamanho da Propriedade (em hectares):</label>
+                    <input type="number" id="tamanho" min="1" placeholder="Ex: 50" required>
+                </div>
+                <button type="submit" class="btn-enviar">Calcular Impacto Estimado</button>
+            </form>
+            <div id="resultado-simulacao"></div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 AgroSustentável - Cultivando a tecnologia, preservando a vida.</p>
+    </footer>
+
     <script>
-        // Aguarda o DOM (HTML) carregar completamente antes de executar o script
         document.addEventListener("DOMContentLoaded", () => {
-            initApp();
+            inicializarAgroApp();
         });
 
-        /**
-         * Função principal que inicializa as funções do site
-         */
-        function initApp() {
-            console.log("JavaScript ativado: A página agora está viva e funcional!");
-            
-            configurarCliques();
-            configurarValidacaoFormulario();
-            configurarAnimacoes();
+        function inicializarAgroApp() {
+            gerenciarTema();
+            gerenciarSimulador();
+            gerenciarAnimacaoScroll();
         }
 
-        /**
-         * 1. Resposta aos Cliques do Usuário e Interatividade
-         */
-        function configurarCliques() {
-            const botaoAlternar = document.getElementById("btn-tema");
-            
-            if (botaoAlternar) {
-                botaoAlternar.addEventListener("click", () => {
-                    // Alterna uma classe no body para mudar o tema (Ex: claro/escuro)
-                    document.body.classList.toggle("modo-escuro");
-                    console.log("Tema da página alterado.");
-                });
-            }
+        // 1. Controle de Tema Claro/Escuro
+        function gerenciarTema() {
+            const botaoTema = document.getElementById("btn-tema");
+            botaoTema.addEventListener("click", () => {
+                document.body.classList.toggle("modo-escuro");
+            });
         }
 
-        /**
-         * 2. Validação de Formulários
-         */
-        function configurarValidacaoFormulario() {
-            const formulario = document.getElementById("meu-formulario");
-            
-            if (formulario) {
-                formulario.addEventListener("submit", (evento) => {
-                    // Impede o envio padrão (recarregar a página) antes de validar
-                    evento.preventDefault();
-                    
-                    const campoEmail = document.getElementById("email");
-                    const mensagemErro = document.getElementById("erro-mensagem");
-                    
-                    // Lógica de validação simples
-                    if (!campoEmail.value.includes("@")) {
-                        mensagemErro.textContent = "Por favor, insira um e-mail válido.";
-                        mensagemErro.style.color = "red";
-                        console.warn("Validação falhou: E-mail inválido.");
-                    } else {
-                        mensagemErro.textContent = "Formulário enviado com sucesso!";
-                        mensagemErro.style.color = "green";
-                        console.log("Formulário validado e enviado.");
-                        
-                        formulario.reset(); 
-                    }
-                });
-            }
+        // 2. Lógica Interativa do Simulador (Ação baseada nas respostas)
+        function gerenciarSimulador() {
+            const formulario = document.getElementById("form-simulador");
+            const divResultado = document.getElementById("resultado-simulacao");
+
+            formulario.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                const tecnologia = document.getElementById("tecnologia").value;
+                const tamanho = parseFloat(document.getElementById("tamanho").value);
+                
+                let mensagem = "";
+                let corFeedback = "#27ae60";
+
+                if (tecnologia === "irrigacao") {
+                    const aguaEconomizada = tamanho * 15000; // Cálculo fictício explicativo
+                    mensagem = `Economia estimada de até ${aguaEconomizada.toLocaleString('pt-BR')} litros de água por ano!`;
+                } else if (tecnologia === "ilpf") {
+                    const CO2Sequestrado = tamanho * 4.5;
+                    mensagem = `Sua propriedade pode mitigar cerca de ${CO2Sequestrado.toFixed(1)} toneladas de CO₂ anualmente.`;
+                } else if (tecnologia === "solar") {
+                    mensagem = `Redução de até 85% nos custos de energia elétrica da operação agrícola.`;
+                    corFeedback = "#e67e22";
+                }
+
+                divResultado.style.backgroundColor = corFeedback + "22"; // Adiciona opacidade ao fundo
+                divResultado.style.color = corFeedback;
+                divResultado.style.border = `1px solid ${corFeedback}`;
+                divResultado.textContent = mensagem;
+            });
         }
 
-        /**
-         * 3. Definição de Ações e Animações Dinâmicas
-         */
-        function configurarAnimacoes() {
-            const elementosAnimados = document.querySelectorAll(".animar-ao-entrar");
+        // 3. Animação de Scroll para a seção do Simulador
+        function gerenciarAnimacaoScroll() {
+            const elementos = document.querySelectorAll(".animar-scroll");
             
-            // Cria um observador para ativar animações quando o elemento aparece na tela
             const observador = new IntersectionObserver((entradas) => {
                 entradas.forEach(entrada => {
                     if (entrada.isIntersecting) {
-                        // Adiciona a classe CSS que executa a animação
-                        entrada.target.classList.add("fade-in-ativa");
-                        // Para de observar após animar uma vez
-                        observador.unobserve(entrada.target); 
+                        entrada.target.classList.add("scroll-ativo");
+                        observador.unobserve(entrada.target); // Anima apenas uma vez
                     }
                 });
-            }, { threshold: 0.1 }); // Dispara quando 10% do elemento estiver visível
+            }, { threshold: 0.15 });
 
-            elementosAnimados.forEach(elemento => observador.observe(elemento));
+            elementos.forEach(el => observador.observe(el));
         }
     </script>
 </body>
