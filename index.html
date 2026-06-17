@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiência Dinâmica com JavaScript</title>
+    <style>
+        /* --- ESTILOS ADICIONAIS PARA SUPORTAR O JAVASCRIPT --- */
+        
+        :root {
+            --bg-color: #f4f4f9;
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --primary-color: #007bff;
+        }
+
+        /* Classe que o JavaScript ativa para mudar o tema */
+        body.modo-escuro {
+            --bg-color: #121212;
+            --text-color: #f4f4f9;
+            --card-bg: #1e1e1e;
+            --primary-color: #3700b3;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: white;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input[type="email"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #erro-mensagem {
+            font-weight: bold;
+            margin: 0;
+        }
+
+        /* Classes de Animação controladas pelo Scroll (JavaScript) */
+        .animar-ao-entrar {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            margin-top: 20vh; /* Força o scroll para testar a animação */
+            padding: 30px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* Classe injetada pelo JavaScript quando o elemento entra na tela */
+        .fade-in-ativa {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Página Dinâmica</h1>
+        <button id="btn-tema">Alternar Modo Escuro</button>
+    </header>
+
+    <main class="container">
+        <h2>Inscreva-se na Newsletter</h2>
+        <form id="meu-formulario">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" placeholder="exemplo@email.com" required>
+            <button type="submit">Enviar Dados</button>
+            <p id="erro-mensagem"></p>
+        </form>
+    </main>
+
+    <section class="animar-ao-entrar">
+        <h2>¡Surpresa! 🎉</h2>
+        <p>Este bloco apareceu suavemente porque o JavaScript detectou que você rolou a página até aqui.</p>
+    </section>
+
+    <script>
+        // Aguarda o DOM (HTML) carregar completamente antes de executar o script
+        document.addEventListener("DOMContentLoaded", () => {
+            initApp();
+        });
+
+        /**
+         * Função principal que inicializa as funções do site
+         */
+        function initApp() {
+            console.log("JavaScript ativado: A página agora está viva e funcional!");
+            
+            configurarCliques();
+            configurarValidacaoFormulario();
+            configurarAnimacoes();
+        }
+
+        /**
+         * 1. Resposta aos Cliques do Usuário e Interatividade
+         */
+        function configurarCliques() {
+            const botaoAlternar = document.getElementById("btn-tema");
+            
+            if (botaoAlternar) {
+                botaoAlternar.addEventListener("click", () => {
+                    // Alterna uma classe no body para mudar o tema (Ex: claro/escuro)
+                    document.body.classList.toggle("modo-escuro");
+                    console.log("Tema da página alterado.");
+                });
+            }
+        }
+
+        /**
+         * 2. Validação de Formulários
+         */
+        function configurarValidacaoFormulario() {
+            const formulario = document.getElementById("meu-formulario");
+            
+            if (formulario) {
+                formulario.addEventListener("submit", (evento) => {
+                    // Impede o envio padrão (recarregar a página) antes de validar
+                    evento.preventDefault();
+                    
+                    const campoEmail = document.getElementById("email");
+                    const mensagemErro = document.getElementById("erro-mensagem");
+                    
+                    // Lógica de validação simples
+                    if (!campoEmail.value.includes("@")) {
+                        mensagemErro.textContent = "Por favor, insira um e-mail válido.";
+                        mensagemErro.style.color = "red";
+                        console.warn("Validação falhou: E-mail inválido.");
+                    } else {
+                        mensagemErro.textContent = "Formulário enviado com sucesso!";
+                        mensagemErro.style.color = "green";
+                        console.log("Formulário validado e enviado.");
+                        
+                        formulario.reset(); 
+                    }
+                });
+            }
+        }
+
+        /**
+         * 3. Definição de Ações e Animações Dinâmicas
+         */
+        function configurarAnimacoes() {
+            const elementosAnimados = document.querySelectorAll(".animar-ao-entrar");
+            
+            // Cria um observador para ativar animações quando o elemento aparece na tela
+            const observador = new IntersectionObserver((entradas) => {
+                entradas.forEach(entrada => {
+                    if (entrada.isIntersecting) {
+                        // Adiciona a classe CSS que executa a animação
+                        entrada.target.classList.add("fade-in-ativa");
+                        // Para de observar após animar uma vez
+                        observador.unobserve(entrada.target); 
+                    }
+                });
+            }, { threshold: 0.1 }); // Dispara quando 10% do elemento estiver visível
+
+            elementosAnimados.forEach(elemento => observador.observe(elemento));
+        }
+    </script>
+</body>
+</html>
